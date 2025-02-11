@@ -52,7 +52,7 @@ public class Logic {
         }
 
         StringBuilder text = new StringBuilder();
-        String[] words = morse.split("   ");  // Tre mellanslag mellan ord
+        String[] words = morse.split(" ");  // Tre mellanslag mellan ord
 
         for (String word : words) {
             String[] letters = word.split(" ");
