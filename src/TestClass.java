@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestClass {
 
+    // Testar att texten korrekt omvandlas till morsekod
     @Test
     public void testToMorse() {
         assertEquals(".... . .---", Logic.toMorse("hej"));
@@ -10,6 +11,7 @@ public class TestClass {
         assertEquals(".-- --- .-. .-.. -..", Logic.toMorse("world"));
     }
 
+    // Testar att morsekod korrekt omvandlas till text
     @Test
     public void testToEnglish() {
         assertEquals("HEJ", Logic.toEnglish(".... . .---"));
@@ -17,6 +19,7 @@ public class TestClass {
         assertEquals("WORLD", Logic.toEnglish(".-- --- .-. .-.. -.."));
     }
 
+    // Testar att felaktig morsekod resulterar i ett undantag
     @Test
     public void testInvalidMorseCode() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -25,6 +28,7 @@ public class TestClass {
         assertEquals("Ogiltig morsekod: ---.-", exception.getMessage());
     }
 
+    // Testar att tom input ger rätt felmeddelande
     @Test
     public void testEmptyInput() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -37,7 +41,30 @@ public class TestClass {
         });
         assertEquals("Morsekoden får inte vara tom.", exception.getMessage());
     }
+
+
+    // Testar hanteringen av ogiltiga tecken i inmatningen
+    @Test
+    public void testInvalidCharacters() {
+        // Testa ogiltiga tecken i texten
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            Logic.toMorse("Hello@World");
+        });
+        assertEquals("Ogiltigt tecken: @", exception.getMessage());
+
+        exception = assertThrows(IllegalArgumentException.class, () -> {
+            Logic.toMorse("Test#123");
+        });
+        assertEquals("Ogiltigt tecken: #", exception.getMessage());
+
+        exception = assertThrows(IllegalArgumentException.class, () -> {
+            Logic.toMorse("Hello World!");
+        });
+        assertEquals("Ogiltigt tecken: !", exception.getMessage());
+    }
+
 }
+
 
 
 

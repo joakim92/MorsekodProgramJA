@@ -3,11 +3,11 @@ import java.util.Map;
 
 public class Logic {
 
-
-
+    //Skapar  hashmap för att kunna lagra översättningar
     private static final Map<Character, String> englishToMorse = new HashMap<>();
     private static final Map<String, Character> morseToEnglish = new HashMap<>();
 
+    // Statisk kodblock som körs när klassen laddas, fyller hashmaps med morsekod och bokstäver
     static {
         String[][] morseAlphabet = {
                 {"A", ".-"}, {"B", "-..."}, {"C", "-.-."}, {"D", "-.."}, {"E", "."},{"F", "..-."}, {"G", "--."}, {"H", "...."}, {"I", ".."}, {"J", ".---"},
@@ -22,10 +22,9 @@ public class Logic {
             englishToMorse.put(letter, morse);
             morseToEnglish.put(morse, letter);
 
-
         }
     }
-
+        //Metod som konverterar en textsträng till morsekod
     public static String toMorse(String text) {
         if (text == null || text.isEmpty()) {
             throw new IllegalArgumentException("Texten får inte vara tom.");
@@ -46,16 +45,17 @@ public class Logic {
 
         return morse.toString().trim();
     }
+    //Metod som konverterar en morsekod till engleska
     public static String toEnglish(String morse) {
         if (morse == null || morse.isEmpty()) {
             throw new IllegalArgumentException("Morsekoden får inte vara tom.");
         }
 
         StringBuilder text = new StringBuilder();
-        String[] words = morse.split(" ");  // Tre mellanslag mellan ord
+        String[] words = morse.trim().split(" {3}");
 
         for (String word : words) {
-            String[] letters = word.split(" ");
+            String[] letters = word.split(" "); // Ett mellanslag mellan bokstäver
             for (String letter : letters) {
                 if (morseToEnglish.containsKey(letter)) {
                     text.append(morseToEnglish.get(letter));

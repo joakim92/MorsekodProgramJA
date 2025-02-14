@@ -4,8 +4,6 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-
-
         System.out.println("Hejsan och välkommen till Morse-kod översättaren!");
 
         while (true) {
@@ -17,12 +15,20 @@ public class Main {
 
             System.out.print("Vad är ditt val?");
 
-            String choice = scanner.nextLine();
+            //Lägger in en felhantering som kontrollerar att man endast kan använda valen 1,2 och 3
+            String choice;
+            while (true) {
+                choice = scanner.nextLine().trim();
+                if (choice.equals("1") || choice.equals("2") || choice.equals("3")) {
+                    break;
+                }
+                System.out.println("Ogiltigt val, försök igen genom att välja 1, 2 eller 3.");
+                System.out.print("Vad är ditt val? ");
+            }
 
             if (choice.equals("3")) {
                 System.out.println("Programmet avslutas.");
                 break;
-
 
             }
 
@@ -31,10 +37,8 @@ public class Main {
             try {
                 if (choice.equals("1")) {
                     System.out.println("Morsekod: " + Logic.toMorse(input));
-                } else if (choice.equals("2")) {
-                    System.out.println("Engelsk text: " + Logic.toEnglish(input));
                 } else {
-                    System.out.println("Ogiltigt val, försök igen.");
+                    System.out.println("Engelsk text: " + Logic.toEnglish(input));
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println("Fel: " + e.getMessage());
